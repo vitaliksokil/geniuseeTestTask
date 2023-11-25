@@ -1,0 +1,67 @@
+version: "3.8"
+
+x-database-variables: &database-variables
+  MYSQL_ROOT_PASSWORD: "12345"
+  MYSQL_PASSWORD: "12345"
+  MYSQL_DATABASE: geniusee
+  MYSQL_USER: admin
+
+x-backend-variables: &backend-variables
+  X_APP_NAME: GeniuseeTestTask
+  X_APP_ENV: 'local'
+  X_APP_KEY: ""
+  X_APP_DEBUG: 'true'
+  X_APP_URL: "http://127.0.0.1:8111"
+
+
+  X_DB_CONNECTION: mysql
+  X_DB_HOST: database
+  X_DB_PORT: 3306
+  X_DB_DATABASE: geniusee_test
+  X_DB_USERNAME: admin
+  X_DB_PASSWORD: "12345"
+
+
+
+services:
+
+  app:
+    container_name: geniusee_test_task
+    depends_on:
+      - database
+    links:
+      - database
+    environment: *backend-variables
+    image: geniusee_test_task_img
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ./src:/var/www
+    #      - storage:/var/www/storage/app/public
+    ports:
+      - 8111:80
+
+  database:
+    image: mariadb:latest
+    environment: *database-variables
+    volumes:
+      - database:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    depends_on:
+      - database
+    environment:
+      - PMA_ARBITRARY=1
+      - UPLOAD_LIMIT=300M
+    links:
+      - database
+    ports:
+      - 8112:80
+
+volumes:
+#  storage:
+  database:

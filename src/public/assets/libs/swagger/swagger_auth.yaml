@@ -1,0 +1,18 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: Geniusee Test app Auth endpoints
+  description: "<a href='/docs'> Public endpoints </a>"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: []
+
+
+paths:
