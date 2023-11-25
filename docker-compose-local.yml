@@ -21,7 +21,8 @@ x-backend-variables: &backend-variables
   X_DB_USERNAME: admin
   X_DB_PASSWORD: "12345"
 
-
+  X_OMDB_ENDPOINT: "https://www.omdbapi.com"
+  X_OMDB_API_KEY: "1e94eee3"
 
 services:
 

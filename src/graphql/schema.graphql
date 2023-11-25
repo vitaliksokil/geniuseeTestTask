@@ -1,0 +1,20 @@
+enum MovieType {
+    MOVIE
+    SERIES
+    EPISODE
+}
+
+type Mutation {
+    syncMovies(search: String! @rules(apply: ["required", "string", "min:3"]),
+        type: MovieType!,
+        page: Int!
+    ): Boolean
+}
+
+type Query {
+    movies: [Movie!]! @all
+}
+type Movie {
+    id: ID!
+    title: String!
+}

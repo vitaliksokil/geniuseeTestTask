@@ -2,16 +2,14 @@
 
 namespace App\Providers;
 
-use App\Broadcasting\Messages\SnsChannel;
-use App\Broadcasting\Messages\TwilioChannel;
-use Aws\Credentials\Credentials;
-use Aws\Sns\SnsClient;
-use Illuminate\Foundation\AliasLoader;
-use Illuminate\Notifications\ChannelManager;
-use Illuminate\Support\Facades\Notification;
+use App\Repositories\Movie\MovieRepository;
+use App\Repositories\Movie\MovieRepositoryInterface;
+use App\Repositories\MoviesSource\MoviesSourceInterface;
+use App\Repositories\MoviesSource\OmdbRepository;
+use App\Services\Movie\MovieService;
+use App\Services\Movie\MovieServiceInterface;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
-use Twilio\Rest\Client;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +21,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // added bind in this provider and not created new one because there are no a lot of classes,
+        // so currently for that small project it has no sense for splitting
+        $this->app->bind(MovieServiceInterface::class, MovieService::class);
+        $this->app->bind(MoviesSourceInterface::class, OmdbRepository::class);
+        $this->app->bind(MovieRepositoryInterface::class, MovieRepository::class);
     }
 
     /**
