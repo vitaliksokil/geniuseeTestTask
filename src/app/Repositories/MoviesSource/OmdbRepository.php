@@ -2,7 +2,6 @@
 
 namespace App\Repositories\MoviesSource;
 
-use App\DTO\Movie\MovieDto;
 use App\Enums\MovieType;
 use Illuminate\Support\Facades\Http;
 
@@ -30,13 +29,11 @@ class OmdbRepository implements MoviesSourceInterface
         return $this->response($data);
     }
 
-    public function getById(string $id): MovieDto
+    public function getById(string $id): array
     {
-        $data = Http::get($this->buildEndpoint([
+        return $this->response(Http::get($this->buildEndpoint([
             'i' => $id,
-        ]))->json();
-        dd($this->response($data));
-        return MovieDto::from($this->response($data));
+        ]))->json());
     }
 
     private function buildEndpoint(array $params): string

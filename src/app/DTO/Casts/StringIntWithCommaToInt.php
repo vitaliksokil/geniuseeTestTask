@@ -10,6 +10,7 @@ class StringIntWithCommaToInt implements Castable
 {
     public static function dataCastUsing(...$arguments): Cast
     {
+        // '738,822' to 738822
         return new class implements Cast {
             public function cast(DataProperty $property, mixed $value, array $context): int {
                 return (int)str_replace(',', '', $value);

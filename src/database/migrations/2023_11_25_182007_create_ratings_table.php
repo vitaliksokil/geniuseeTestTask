@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('source');
             $table->tinyInteger('value')->unsigned(); // max = 100
-            $table->foreignId('movie_id')->constrained()->cascadeOnDelete();
+            $table->string('imdb_id');
+            $table->foreign('imdb_id')->references('imdb_id')->on('movies')->cascadeOnDelete();
             $table->timestamps();
         });
     }

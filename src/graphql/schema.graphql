@@ -9,12 +9,45 @@ type Mutation {
         type: MovieType!,
         page: Int!
     ): Boolean
+    updateMovie(
+        id: ID!
+        imdb_id: String
+        title: String
+        type: String
+        release_date: String
+        year: Int
+        poster_url: String
+        genre: String
+        runtime: Int
+        country: String
+        imdb_rating: Float
+        imdb_votes: Int
+    ): Movie! @update
 }
 
 type Query {
-    movies: [Movie!]! @all
+    movies: [Movie!]! @paginate
+    movie(id: ID @eq): Movie @find
 }
 type Movie {
     id: ID!
+    imdb_id: String!
     title: String!
+    type: String!
+    release_date: String!
+    year: Int!
+    poster_url: String!
+    genre: String!
+    runtime: Int!
+    country: String!
+    imdb_rating: Float!
+    imdb_votes: Int!
+    ratings: [Rating!]! @hasMany
 }
+type Rating {
+    id: ID!
+    source: String!
+    imdb_id: String!
+    value: Int!
+}
+

@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Repositories\Movie\MovieRepository;
 use App\Repositories\Movie\MovieRepositoryInterface;
+use App\Repositories\Movie\Rating\RatingRepository;
+use App\Repositories\Movie\Rating\RatingRepositoryInterface;
 use App\Repositories\MoviesSource\MoviesSourceInterface;
 use App\Repositories\MoviesSource\OmdbRepository;
 use App\Services\Movie\MovieService;
@@ -26,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(MovieServiceInterface::class, MovieService::class);
         $this->app->bind(MoviesSourceInterface::class, OmdbRepository::class);
         $this->app->bind(MovieRepositoryInterface::class, MovieRepository::class);
+        $this->app->bind(RatingRepositoryInterface::class, RatingRepository::class);
     }
 
     /**

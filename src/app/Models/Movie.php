@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Movie extends Model
 {
@@ -22,4 +23,9 @@ class Movie extends Model
         'imdb_rating',
         'imdb_votes',
     ];
+
+    public function ratings(): HasMany
+    {
+        return $this->hasMany(Rating::class, 'imdb_id','imdb_id');
+    }
 }

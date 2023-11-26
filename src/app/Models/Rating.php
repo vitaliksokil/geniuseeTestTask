@@ -11,6 +11,7 @@ class Rating extends Model
 
     protected $fillable = [
         'source',
-        'value'
+        'value',
+        'imdb_id'
     ];
 }
