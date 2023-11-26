@@ -6,6 +6,12 @@ x-database-variables: &database-variables
   MYSQL_DATABASE: geniusee
   MYSQL_USER: admin
 
+x-database-test-variables: &database-test-variables
+  MYSQL_ROOT_PASSWORD: "12345"
+  MYSQL_PASSWORD: "12345"
+  MYSQL_DATABASE: geniusee_test
+  MYSQL_USER: admin
+
 x-backend-variables: &backend-variables
   X_APP_NAME: GeniuseeTestTask
   X_APP_ENV: 'local'
@@ -50,6 +56,12 @@ services:
     volumes:
       - database:/var/lib/mysql
 
+  database-test:
+    image: mariadb:latest
+    environment: *database-test-variables
+    volumes:
+      - database-test:/var/lib/mysql
+
   phpmyadmin:
     image: phpmyadmin
     restart: always
@@ -66,3 +78,4 @@ services:
 volumes:
 #  storage:
   database:
+  database-test:

@@ -49,6 +49,7 @@ class MovieService implements MovieServiceInterface
                     && $this->ratingRepository->createOrUpdateMultiple($ratings);
             });
         }catch (\Exception $exception) {
+            dd($exception->getMessage());
             // returning false as a result of endpoint if something went wrong
             // it's possible to add throwing of exceptions for each error
             return false;
