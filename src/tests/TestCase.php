@@ -5,10 +5,15 @@ namespace Tests;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
+use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
+    use MakesGraphQLRequests;
+    use RefreshesSchemaCache;
+
     protected $headers = [];
 
     /**
@@ -30,10 +35,6 @@ abstract class TestCase extends BaseTestCase
         }
 
         $this->headers['Accept'] = 'application/json';
-
-        Storage::fake('public', [
-            'url' => env('APP_URL').'/storage',
-        ]);
     }
 
     const WITHOUT_MIDDLEWARES = [
